@@ -45,6 +45,7 @@ the lispnyc-jetty project. This is done by the *build-deploy.sh*
 script.
 
     ./make-symlinks.sh # only run this once
+    lein deps
     ./build-deploy.sh
 
 Then make sure the [lispnyc-jetty project](https://github.com/heow/lispnyc-jetty) is running and look at *http://localhost:8000*

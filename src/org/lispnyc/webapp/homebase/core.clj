@@ -161,23 +161,8 @@
   ;; This seriously makes me cry, call 917-825-2382 if you'd like to have
   ;; a nice long conversation about compling Clojoure functions.
   ;; Pour yourself a drink first.
-  ;; unable to use (publish-path "data" #".*\.txt")
-  (nth pubpath 0)  
-  (nth pubpath 1)  
-  (nth pubpath 2)
-  (nth pubpath 3)
-  (nth pubpath 4)
-  (nth pubpath 5)
-  (nth pubpath 6)
-  (nth pubpath 7)
-  (nth pubpath 8)
-  (nth pubpath 9)
-  (nth pubpath 10)
-  (nth pubpath 11)
-  (nth pubpath 12)
-  (nth pubpath 13)
-  (nth pubpath 14)
-  (nth pubpath 15)
+  ;; unable to ues (publish-path "data" #".*\.txt") in a WAR
+  (nth pubpath 0) (nth pubpath 1) (nth pubpath 2) (nth pubpath 3) (nth pubpath 4) (nth pubpath 5) (nth pubpath 6) (nth pubpath 7) (nth pubpath 8) (nth pubpath 9) (nth pubpath 10) (nth pubpath 11) (nth pubpath 12) (nth pubpath 13) (nth pubpath 14) (nth pubpath 15)
   
   (ww/GET          "/debug" [] (debug-page))
 ;; (ww/GET          "/mail"  [] (mail-page))

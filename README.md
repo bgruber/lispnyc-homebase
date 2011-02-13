@@ -12,8 +12,7 @@ the Jetty webapp framework, it requires:
 
   * Java
   * Clojure
-  * [leiningen](https://github.com/technomancy/leiningen)
-  * or maven
+  * [leiningen](https://github.com/technomancy/leiningen)  (or Maven)
   * [lispnyc-jetty project](https://github.com/heow/lispnyc-jetty)
   
 Some resources from the [lispnyc-jetty project](https://github.com/heow/lispnyc-jetty) project are used directly here, they're symlinked (or copied) over:

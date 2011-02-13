@@ -1,46 +1,44 @@
-### Website for LispNYC.org
+# Website for LispNYC.org
 
 It's not perfect, contains Unix-isims and in some ways is suboptimal (see mail
 handling), but works and is a growing work in progress.
 
-### Requirements
+## Requirements
 
 In order to compile and run the project, either stand-alone or within
 the Jetty webapp framework, it requires:
 
   * java
-  * leiningen https://github.com/technomancy/leiningen
+  * [leiningen](https://github.com/technomancy/leiningen)
   * or maven
-  * lispnyc-jetty project  https://github.com/heow/lispnyc-jetty
-  * symlinks from this project into the lispnyc-jetty project
+  * [lispnyc-jetty project](https://github.com/heow/lispnyc-jetty)
   
-Symlinks are as such:
+Some resources from the *lispnyc-jetty* project are used directly here, they're symlinked (or copied) over:
 
-* homebase-data        -> your-jetty-install-directory/homebase-data
-* pebbleblog-articles  -> your-jetty-install-directory/pebbleblog-articles
-* html                 -> src/html
+    homebase-data        -> your-jetty-install-directory/homebase-data
+    pebbleblog-articles  -> your-jetty-install-directory/pebbleblog-articles
+    html                 -> src/html
+    src/html/static      -> your-jetty-install-directory/homebase-static 
 
-### Installation
+## Running Standalone 
 
-    make-symlinks.sh
+There are two ways to run this, standalone or via a WAR deployment along with the other webapps.  Running standalone is quicker but you don't get access to the blog system, only the blog data.
+
+It's pretty easy, just run:
+
+    ./make-symlinks.sh # only run this once
     lein deps
     ./start
 
 Look at *http://localhost:8000*
 
-### WAR Deployment
+## WAR Deployment
 
-We're having trouble running the webapp as an actual war due to simplecms
-and Clojure's compiled functions.  For now we expand it in the webapp directory 
-of the lispnyc-jetty project.  This is done by the *build-deploy.sh* script.
+First some caveats: we're having trouble running the webapp as an
+actual war due to simplecms and Clojure's compiled functions.  For now
+we expand the LispNYC homebase WAR in the webapp directory of the lispnyc-jetty project. This is done by the *build-deploy.sh* script.
 
-    lein uberwar
-    cp home.war your-jetty-install-directory/
-    cd your-jetty-install-directory/webapps
-    rm -rf home/
-    mkdir home
-    cd home
-    jar -xf ../home.war 
-    cd your-jetty-install-directory/
-    ./start.sh 
+    ./make-symlinks.sh # only run this once
+    ./build-deploy.sh
+
 

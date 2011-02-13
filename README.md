@@ -20,6 +20,8 @@ Some resources from the *lispnyc-jetty* project are used directly here, they're 
     html                 -> src/html
     src/html/static      -> your-jetty-install-directory/homebase-static 
 
+The *static* directory is copied directly from the lispnyc-jetty project because Jetty won't easily serve up symlinked directories.  Just keep that in mind so that HTML modifications don't get out of sync between the Standalone nad WAR operation.
+
 ## Running Standalone 
 
 There are two ways to run this, standalone or via a WAR deployment along with the other webapps.  Running standalone is quicker but you don't get access to the blog system, only the blog data.
@@ -40,5 +42,9 @@ we expand the LispNYC homebase WAR in the webapp directory of the lispnyc-jetty 
 
     ./make-symlinks.sh # only run this once
     ./build-deploy.sh
+
+
+Then make sure the [lispnyc-jetty project](https://github.com/heow/lispnyc-jetty) and look at *http://localhost:8000*
+
 
 

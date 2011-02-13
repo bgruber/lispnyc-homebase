@@ -8,7 +8,10 @@ handling), but works and is a growing work in progress.
 In order to compile and run the project, either stand-alone or within
 the Jetty webapp framework, it requires:
 
-  * lispnyc-jetty project
+  * java
+  * leiningen https://github.com/technomancy/leiningen
+  * or maven
+  * lispnyc-jetty project  https://github.com/heow/lispnyc-jetty
   * symlinks from this project into the lispnyc-jetty project
   
 Symlinks are as such:
@@ -19,18 +22,11 @@ Symlinks are as such:
 
 ### Installation
 
-Run the *make-symlinks.sh* file to symlink between this and Jetty, only once.
-
-Run 
+    make-symlinks.sh
     lein deps
-and
     ./start
-or
-    ./build-deploy.sh
 
-Start runs the lispnyc website as a local Jetty
-
-Hit *http://localhost:8000*
+Look at *http://localhost:8000*
 
 ### WAR Deployment
 

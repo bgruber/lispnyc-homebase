@@ -17,3 +17,4 @@ jar -xf ../home.war
 rm ../home.war
 echo "deployed in ../lispnyc-jetty/webapps"
 popd 
+echo "make sure ../lispnyc-jetty is running"

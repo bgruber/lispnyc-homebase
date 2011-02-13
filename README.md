@@ -48,4 +48,4 @@ script.
     lein deps
     ./build-deploy.sh
 
-Then make sure the [lispnyc-jetty project](https://github.com/heow/lispnyc-jetty) is running and look at *http://localhost:8000*
+Ensure the [lispnyc-jetty](https://github.com/heow/lispnyc-jetty) webapp server is running and look at *http://localhost:8000*

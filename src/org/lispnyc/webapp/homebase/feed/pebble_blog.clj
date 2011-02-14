@@ -18,6 +18,11 @@
 
 (def make-blog (memoize make-blog)) ;; memoized because it's expensive
 
+(defn alphanumericize-input "Only keep specific characters in the input string."
+     [input-str]
+     (let [re (re-pattern "[a-zA-Z0-9 ]")]
+       (apply str (filter #(re-matches re (str %1)) input-str))))
+
 (defn fetch-blog "Initialize a net.sourceforge.pebble.domain.Blog from the give file path and return a Clojure keyword struct."
   [blog-path]
   (initialize)
@@ -33,8 +38,8 @@
                      (.getContent entry)
                      (str (.getExcerpt entry)
                           "<p><a href=\"" "/blog/"  
-                          (.getId blog) "/"
-                          (.replace (.toLowerCase (.getTitle entry)) " " "-" )
+                          (first (reverse (re-seq #"\w+" (.getRoot blog)))) "/" ; get name from /data/blogs/heow/
+                          (.replace (alphanumericize-input (.toLowerCase (.getTitle entry))) " " "-" )
                           "\">Read more...</a></p>")) ;; direct link to article
        :mod-date   (.getLastModified entry)
        })))

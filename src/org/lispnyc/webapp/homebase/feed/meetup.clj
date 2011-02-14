@@ -18,9 +18,11 @@
     {
      :title       (decomp-meetup meetup-data :name)
      :description (decomp-meetup meetup-data :description)
-     :venue       (str "<a href=\""
-                       map-url "\" target=\"_blank\">"
-                       venue " (map)</a>")
+     :venue       (if (= 0 (count venue))
+                    "no venue selected"
+                    (str "<a href=\""
+                         map-url "\" target=\"_blank\">"
+                         venue " (map)</a>"))
      :time        (. time substring 0 (- (count time) 12)) ; remove year
      :address     (decomp-meetup meetup-data :venue_address1)
      :address2    (decomp-meetup meetup-data :how_to_find_us)

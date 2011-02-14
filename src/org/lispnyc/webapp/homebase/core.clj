@@ -98,7 +98,7 @@
 
 (defn validate-input "Only keep specific characters in the input string."
      [input-str]
-     (let [re (re-pattern "[a-zA-Z0-9\\-\\_\\ \\.\\!\\?]")]
+     (let [re (re-pattern "[a-zA-Z0-9\\-\\_\\ \\.\\!\\?\\@]")]
        (apply str (filter #(re-matches re (str %1)) input-str))))
 
 (defn map->mailstr
@@ -113,6 +113,12 @@
         cmd (str "/bin/echo '" msg "' | /usr/bin/mail heow@alphageeksinc.com -s '" (validate-input (params "subject")) "'")]
     (shell/sh "/bin/sh" "-c" cmd)
     "<html><meta http-equiv=\"REFRESH\" content=\"0;url=/meeting/rsvp-thanks\"></HEAD></html>" ))
+
+(defn mail-contact [params] ;; TODO: merge
+  (let [msg (map->mailstr params)
+        cmd (str "/bin/echo '" msg "' | /usr/bin/mail management@lispnyc.org -s '" (validate-input (params "subject")) "'")]
+    (shell/sh "/bin/sh" "-c" cmd)
+    "<html><meta http-equiv=\"REFRESH\" content=\"0;url=/contact-thanks\"></HEAD></html>" ))
 
 (defn mail-blog-signup [params] ;; TODO: merge
   (let [msg (map->mailstr params)
@@ -162,7 +168,7 @@
   ;; a nice long conversation about compling Clojoure functions.
   ;; Pour yourself a drink first.
   ;; unable to ues (publish-path "data" #".*\.txt") in a WAR
-  (nth pubpath 0) (nth pubpath 1) (nth pubpath 2) (nth pubpath 3) (nth pubpath 4) (nth pubpath 5) (nth pubpath 6) (nth pubpath 7) (nth pubpath 8) (nth pubpath 9) (nth pubpath 10) (nth pubpath 11) (nth pubpath 12) (nth pubpath 13) (nth pubpath 14) (nth pubpath 15)
+  (nth pubpath 0) (nth pubpath 1) (nth pubpath 2) (nth pubpath 3) (nth pubpath 4) (nth pubpath 5) (nth pubpath 6) (nth pubpath 7) (nth pubpath 8) (nth pubpath 9) (nth pubpath 10) (nth pubpath 11) (nth pubpath 12) (nth pubpath 13) (nth pubpath 14) (nth pubpath 15) (nth pubpath 16) (nth pubpath 17) (nth pubpath 18)
   
   (ww/GET          "/debug" [] (debug-page))
 ;; (ww/GET          "/mail"  [] (mail-page))
@@ -171,6 +177,7 @@
   (ww/POST         "/blog-signup"   {params :params} (mail-blog-signup params))
   (ww/POST         "/meeting/rsvp"  {params :params} (process-form params mail-rsvp rsvp-file))
   (ww/POST         "/meetings/rsvp" {params :params} (process-form params mail-rsvp rsvp-file))
+  (ww/POST         "/contact"       {params :params} (mail-contact params))
   
   (route/files     "/" {:root "html/"})  ; not used during WAR deployment
   (route/not-found "404 Page not found") 

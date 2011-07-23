@@ -1,17 +1,14 @@
 (ns org.lispnyc.webapp.homebase.core
-  (:use     [org.lispnyc.webapp.homebase.servlet          :as servlet]
-            [org.lispnyc.webapp.homebase.feed.meetup      :as meetup]
+  (:use     [org.lispnyc.webapp.homebase.feed.meetup      :as meetup]
             [org.lispnyc.webapp.homebase.feed.pebble-blog :as pebble]
             [org.lispnyc.webapp.homebase.simplecms        :as cms])
   (:require [bcc.markdown                                 :as md]
-            [ring.adapter.jetty                           :as jetty]
             [compojure.core                               :as ww]
             [compojure.route                              :as route]
             [net.cgrand.enlive-html                       :as enlive]
             [clojure.contrib.shell-out                    :as shell]
             [swank.swank])
-  (:import  [java.io File])
-  (:gen-class)) ; required for main
+  (:import  [java.io File]))
 
 (def homebase-data-dir "homebase-data/")
 (def idea-file (str homebase-data-dir "soc-2011.ideas.txt"))
@@ -209,23 +206,3 @@
 
 ;; note: we're not wrapping keyword-params, using a string is good for our form processing
 (ww/wrap! app-routes wrap-context)
-
-;;
-;; standalone Jetty server, not used during WAR deployment
-;;
-(defn start-server [host port]
-  (println "starting Jetty on " host ":" port)
-  (if (string? port) (start-server host (Integer/parseInt port)) ; rerun as int
-      (future (jetty/run-jetty app-routes {:host host :port port})) )) ; don't wrap keyword params
-
-(comment ; testing
-  (defonce server
-    (run-jetty app-routes {:port 8000 :join? false}))
-  (.start server) 
-  (.stop server))
-
-(defn -main [& args]
-  "For use in standalone operation."
-  (if (nil? args)
-    (start-server "localhost" "8000")
-    (start-server (first args) (first (rest args))) ))

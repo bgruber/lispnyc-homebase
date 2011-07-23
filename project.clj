@@ -17,9 +17,7 @@
                  [radeox "1.0-b2" ]        ; pebble jar
                  [javax.mail.glassfish "1.4.1.v201005082020"] ; pebble jar
                  ]
-  :dev-dependencies [[ring/ring-jetty-adapter "0.3.5"]
-                     [ring/ring-devel "0.3.5"]
-                     [uk.org.alienscience/leiningen-war "0.0.12"]]
-  :aot [org.lispnyc.webapp.homebase.servlet]   ;; servlet class compiled as a java web server
-  :war {:name "home.war"} ;; resulting war name
+  :dev-dependencies [[lein-ring "0.4.5"]]
+  :ring {:handler org.lispnyc.webapp.homebase.core/app-routes}
+  :uberjar-name "home.war"
   )

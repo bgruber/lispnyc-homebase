@@ -7,7 +7,7 @@ else
   exit 1
 fi
 
-lein uberwar
+lein ring uberwar
 
 cp home.war ../lispnyc-jetty/webapps/
 rm -rf ../lispnyc-jetty/webapps/home 2>/dev/null

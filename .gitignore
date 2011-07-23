@@ -4,4 +4,4 @@ src/html/static/
 pebbleblog-articles
 html
 homebase-data
-
+*.war

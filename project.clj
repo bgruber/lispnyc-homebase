@@ -3,16 +3,14 @@
   :run-aliases {:server [org.lispnyc.webapp.homebase.core start-server "localhost" "8080"]}   ;; 2011-01-06 currently broken with lein 1.4.2
   :main org.lispnyc.webapp.homebase.core ; required for main
   :dependencies [
-                 ;; [org.clojure/clojure "1.2.0"]
-                 [org.clojure/clojure "1.3.0-master-SNAPSHOT"]
+                 [org.clojure/clojure "1.2.0"]
                  [org.clojure/clojure-contrib "1.2.0"]
                  [compojure "0.5.2"]
                  [ring/ring-jetty-adapter "0.3.5"]
                  [rhino/js "1.7R2"]
-                 [enlive "1.0.0-SNAPSHOT"]
+                 [enlive "1.0.0"]
                  [ring/ring-servlet "0.3.5"]
                  [hiccup "0.3.1"]
-                 [swank-clojure "1.3.0-SNAPSHOT"]
                  [pebble "2.5.1"]          ; pebble jar
                  [commons-logging "1.0.4"] ; pebble jar
                  [lucene "1.4.1"]          ; pebble jar
@@ -22,9 +20,7 @@
                  ]
   :dev-dependencies [[ring/ring-jetty-adapter "0.3.5"]
                      [ring/ring-devel "0.3.5"]
-                     [swank-clojure "1.3.0-SNAPSHOT"]
-                     [uk.org.alienscience/leiningen-war "0.0.12"]
-                     [lein-run "1.0.1-SNAPSHOT"]]
+                     [uk.org.alienscience/leiningen-war "0.0.12"]]
   :aot [org.lispnyc.webapp.homebase.servlet]   ;; servlet class compiled as a java web server
   :war {:name "home.war"} ;; resulting war name
   )

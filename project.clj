@@ -1,6 +1,5 @@
 (defproject org.lispnyc.webapp.homebase "3.0.0"
   :description "LispNYC's webserver and social integration homebase."
-  :run-aliases {:server [org.lispnyc.webapp.homebase.core start-server "localhost" "8080"]}   ;; 2011-01-06 currently broken with lein 1.4.2
   :main org.lispnyc.webapp.homebase.core ; required for main
   :dependencies [
                  [org.clojure/clojure "1.2.0"]
@@ -24,4 +23,3 @@
   :aot [org.lispnyc.webapp.homebase.servlet]   ;; servlet class compiled as a java web server
   :war {:name "home.war"} ;; resulting war name
   )
-

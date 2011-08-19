@@ -13,6 +13,7 @@
                  [ring/ring-servlet "0.3.5"]
                  [hiccup "0.3.1"]
                  [swank-clojure "1.3.0-SNAPSHOT"]
+                 [com.leadtune/clj-time "0.4.0-SNAPSHOT"]
                  [pebble "2.5.1"]          ; pebble jar
                  [commons-logging "1.0.4"] ; pebble jar
                  [lucene "1.4.1"]          ; pebble jar

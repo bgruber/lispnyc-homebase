@@ -1,14 +1,18 @@
 (ns org.lispnyc.webapp.homebase.core
-  (:use     [org.lispnyc.webapp.homebase.feed.meetup      :as meetup]
+  (:require [org.lispnyc.webapp.homebase.simplecms        :as cms]
             [org.lispnyc.webapp.homebase.feed.pebble-blog :as pebble]
-            [org.lispnyc.webapp.homebase.simplecms        :as cms])
-  (:require [bcc.markdown                                 :as md]
+            [org.lispnyc.webapp.homebase.feed.meetup      :as meetup]
+            [bcc.markdown                                 :as md]
+            [ring.adapter.jetty                           :as jetty]
             [compojure.core                               :as ww]
             [compojure.route                              :as route]
             [net.cgrand.enlive-html                       :as enlive]
             [clojure.contrib.shell-out                    :as shell]
-            [swank.swank])
-  (:import  [java.io File]))
+            [swank.swank]
+            [clj-time.core                                :as tc]
+            [clj-time.format                              :as tf])
+  (:import  [java.io File])
+  (:gen-class)) ; required for main
 
 (def homebase-data-dir "homebase-data/")
 (def idea-file (str homebase-data-dir "soc-2011.ideas.txt"))
@@ -112,16 +116,18 @@
     "<html><meta http-equiv=\"REFRESH\" content=\"0;url=/meeting/rsvp-thanks\"></HEAD></html>" ))
 
 (defn mail-contact [params] ;; TODO: merge
-  (let [msg (map->mailstr params)
-        cmd (str "/bin/echo '" msg "' | /usr/bin/mail management@lispnyc.org -s '" (validate-input (params "subject")) "'")]
-    (shell/sh "/bin/sh" "-c" cmd)
-    "<html><meta http-equiv=\"REFRESH\" content=\"0;url=/contact-thanks\"></HEAD></html>" ))
+  (if (not= nil (params "jobtitle")) ; linkbait
+    (let [msg (map->mailstr params)
+          cmd (str "/bin/echo '" msg "' | /usr/bin/mail management@lispnyc.org -s '" (validate-input (params "subject")) "'")]
+      (shell/sh "/bin/sh" "-c" cmd)
+      "<html><meta http-equiv=\"REFRESH\" content=\"0;url=/contact-thanks\"></HEAD></html>" )))
 
 (defn mail-blog-signup [params] ;; TODO: merge
-  (let [msg (map->mailstr params)
-        cmd (str "/bin/echo '" msg "' | /usr/bin/mail management@lispnyc.org -s 'blog request'")]
-    (shell/sh "/bin/sh" "-c" cmd)
-    "<html><meta http-equiv=\"REFRESH\" content=\"0;url=/blog-thanks\"></HEAD></html>" ))
+  (if (not= nil (params "jobtitle")) ; linkbait
+    (let [msg (map->mailstr params)
+          cmd (str "/bin/echo '" msg "' | /usr/bin/mail management@lispnyc.org -s 'blog request " (tf/unparse (tf/formatters :basic-date) (tc/now)) "'" )]
+      (shell/sh "/bin/sh" "-c" cmd)
+      "<html><meta http-equiv=\"REFRESH\" content=\"0;url=/blog-thanks\"></HEAD></html>" )))
 
 (defn mail-idea [params] ;; TODO: merge
   (let [msg (map->mailstr params)
@@ -165,7 +171,7 @@
   ;; a nice long conversation about compling Clojoure functions.
   ;; Pour yourself a drink first.
   ;; unable to ues (publish-path "data" #".*\.txt") in a WAR
-  (nth pubpath 0) (nth pubpath 1) (nth pubpath 2) (nth pubpath 3) (nth pubpath 4) (nth pubpath 5) (nth pubpath 6) (nth pubpath 7) (nth pubpath 8) (nth pubpath 9) (nth pubpath 10) (nth pubpath 11) (nth pubpath 12) (nth pubpath 13) (nth pubpath 14) (nth pubpath 15) (nth pubpath 16) (nth pubpath 17) (nth pubpath 18)
+  (nth pubpath 0) (nth pubpath 1) (nth pubpath 2) (nth pubpath 3) (nth pubpath 4) (nth pubpath 5) (nth pubpath 6) (nth pubpath 7) (nth pubpath 8) (nth pubpath 9) (nth pubpath 10) (nth pubpath 11) (nth pubpath 12) (nth pubpath 13) (nth pubpath 14) (nth pubpath 15) (nth pubpath 16) (nth pubpath 17) (nth pubpath 18) (nth pubpath 19)
   
   (ww/GET          "/debug" [] (debug-page))
 ;; (ww/GET          "/mail"  [] (mail-page))
